@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<title>早餐漢堡點餐系統</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+  body { font-family: Arial, sans-serif; padding: 10px; max-width: 600px; margin: auto; }
+  h1 { text-align: center; }
+  .section { margin-top: 20px; border: 1px solid #ccc; border-radius: 8px; padding: 10px; }
+  .section-header { font-weight: bold; cursor: pointer; display: flex; justify-content: space-between; align-items: center; }
+  .menu-items { margin-top: 10px; display: none; }
+  .menu-item { display: flex; justify-content: space-between; align-items: center; margin-bottom: 5px; flex-wrap: wrap; }
+  .menu-item span, .menu-item button { margin: 2px; }
+  button { width: 30px; height: 30px; }
+  #total { font-weight: bold; margin-top: 20px; display: block; text-align: right; }
+  @media (max-width: 400px) {
+    .menu-item { flex-direction: column; align-items: flex-start; }
+    .menu-item div { margin-top: 5px; }
+  }
+</style>
+</head>
+<body>
+<h1>早餐漢堡點餐系統</h1>
+
+<!-- 吐司區 -->
+<div class="section">
+  <div class="section-header" onclick="toggleSection(this)">吐司類 <span>▼</span></div>
+  <div class="menu-items">
+    <div class="menu-item" data-name="煎蛋吐司" data-price="25">煎蛋吐司 25 元 
+      <div><button onclick="changeQty(this,-1)">-</button> <span class="qty">0</span> <button onclick="changeQty(this,1)">+</button></div>
+    </div>
+    <div class="menu-item" data-name="蔥蛋吐司" data-price="30">蔥蛋吐司 30 元
+      <div><button onclick="changeQty(this,-1)">-</button> <span class="qty">0</span> <button onclick="changeQty(this,1)">+</button></div>
+    </div>
+    <div class="menu-item" data-name="火腿蛋" data-price="35">火腿蛋 35 元
+      <div><button onclick="changeQty(this,-1)">-</button> <span class="qty">0</span> <button onclick="changeQty(this,1)">+</button></div>
+    </div>
+    <div class="menu-item" data-name="起士蛋" data-price="35">起士蛋 35 元
+      <div><button onclick="changeQty(this,-1)">-</button> <span class="qty">0</span> <button onclick="changeQty(this,1)">+</button></div>
+    </div>
+    <div class="menu-item" data-name="肉鬆蛋" data-price="35">肉鬆蛋 35 元
+      <div><button onclick="changeQty(this,-1)">-</button> <span class="qty">0</span> <button onclick="changeQty(this,1)">+</button></div>
+    </div>
+    <div class="menu-item" data-name="玉米蛋" data-price="35">玉米蛋 35 元
+      <div><button onclick="changeQty(this,-1)">-</button> <span class="qty">0</span> <button onclick="changeQty(this,1)">+</button></div>
+    </div>
+    <div class="menu-item" data-name="培根蛋" data-price="40">培根蛋 40 元
+      <div><button onclick="changeQty(this,-1)">-</button> <span class="qty">0</span> <button onclick="changeQty(this,1)">+</button></div>
+    </div>
+    <div class="menu-item" data-name="豬肉蛋" data-price="40">豬肉蛋 40 元
+      <div><button onclick="changeQty(this,-1)">-</button> <span class="qty">0</span> <button onclick="changeQty(this,1)">+</button></div>
+    </div>
+    <div class="menu-item" data-name="香雞蛋" data-price="40">香雞蛋 40 元
+      <div><button onclick="changeQty(this,-1)">-</button> <span class="qty">0</span> <button onclick="changeQty(this,1)">+</button></div>
+    </div>
+    <div class="menu-item" data-name="薯餅蛋" data-price="45">薯餅蛋 45 元
+      <div><button onclick="changeQty(this,-1)">-</button> <span class="qty">0</span> <button onclick="changeQty(this,1)">+</button></div>
+    </div>
+    <div class="menu-item" data-name="鮪魚蛋" data-price="45">鮪魚蛋 45 元
+      <div><button onclick="changeQty(this,-1)">-</button> <span class="qty">0</span> <button onclick="changeQty(this,1)">+</button></div>
+    </div>
+    <div class="menu-item" data-name="里肌蛋" data-price="45">里肌蛋 45 元
+      <div><button onclick="changeQty(this,-1)">-</button> <span class="qty">0</span> <button onclick="changeQty(this,1)">+</button></div>
+    </div>
+    <div class="menu-item" data-name="菲力蛋" data-price="45">菲力蛋 45 元
+      <div><button onclick="changeQty(this,-1)">-</button> <span class="qty">0</span> <button onclick="changeQty(this,1)">+</button></div>
+    </div>
+    <div class="menu-item" data-name="香烤雞腿蛋" data-price="55">香烤雞腿蛋 55 元
+      <div><button onclick="changeQty(this,-1)">-</button> <span class="qty">0</span> <button onclick="changeQty(this,1)">+</button></div>
+    </div>
+    <div class="menu-item" data-name="原味雞腿蛋" data-price="65">原味雞腿蛋 65 元
+      <div><button onclick="changeQty(this,-1)">-</button> <span class="qty">0</span> <button onclick="changeQty(this,1)">+</button></div>
+    </div>
+    <div class="menu-item" data-name="辣味雞腿蛋" data-price="65">辣味雞腿蛋 65 元
+      <div><button onclick="changeQty(this,-1)">-</button> <span class="qty">0</span> <button onclick="changeQty(this,1)">+</button></div>
+    </div>
+    <div class="menu-item" data-name="豬肉總匯" data-price="55">豬肉總匯 55 元
+      <div><button onclick="changeQty(this,-1)">-</button> <span class="qty">0</span> <button onclick="changeQty(this,1)">+</button></div>
+    </div>
+    <div class="menu-item" data-name="里肌總匯" data-price="60">里肌總匯 60 元
+      <div><button onclick="changeQty(this,-1)">-</button> <span class="qty">0</span> <button onclick="changeQty(this,1)">+</button></div>
+    </div>
+    <div class="menu-item" data-name="原味雞腿總匯" data-price="75">原味雞腿總匯 75 元
+      <div><button onclick="changeQty(this,-1)">-</button> <span class="qty">0</span> <button onclick="changeQty(this,1)">+</button></div>
+    </div>
+    <div class="menu-item" data-name="辣味雞腿總匯" data-price="75">辣味雞腿總匯 75 元
+      <div><button onclick="changeQty(this,-1)">-</button> <span class="qty">0</span> <button onclick="changeQty(this,1)">+</button></div>
+    </div>
+  </div>
+</div>
+
+<!-- 漢堡區 -->
+<div class="section">
+  <div class="section-header" onclick="toggleSection(this)">漢堡類 <span>▼</span></div>
+  <div class="menu-items">
+    <div class="menu-item" data-name="豬肉漢堡蛋" data-price="45">豬肉漢堡蛋 45 元
+      <div><button onclick="changeQty(this,-1)">-</button> <span class="qty">0</span> <button onclick="changeQty(this,1)">+</button></div>
+    </div>
+    <div class="menu-item" data-name="香雞蛋" data-price="45">香雞蛋 45 元
+      <div><button onclick="changeQty(this,-1)">-</button> <span class="qty">0</span> <button onclick="changeQty(this,1)">+</button></div>
+    </div>
+    <div class="menu-item" data-name="里肌蛋" data-price="50">里肌蛋 50 元
+      <div><button onclick="changeQty(this,-1)">-</button> <span class="qty">0</span> <button onclick="changeQty(this,1)">+</button></div>
+    </div>
+    <div class="menu-item" data-name="菲力蛋" data-price="50">菲力蛋 50 元
+      <div><button onclick="changeQty(this,-1)">-</button> <span class="qty">0</span> <button onclick="changeQty(this,1)">+</button></div>
+    </div>
+    <div class="menu-item" data-name="鮪魚蛋" data-price="50">鮪魚蛋 50 元
+      <div><button onclick="changeQty(this,-1)">-</button> <span class="qty">0</span> <button onclick="changeQty(this,1)">+</button></div>
+    </div>
+    <div class="menu-item" data-name="和風蛋" data-price="50">和風蛋 50 元
+      <div><button onclick="changeQty(this,-1)">-</button> <span class="qty">0</span> <button onclick="changeQty(this,1)">+</button></div>
+    </div>
+    <div class="menu-item" data-name="照燒蛋" data-price="50">照燒蛋 50 元
+      <div><button onclick="changeQty(this,-1)">-</button> <span class="qty">0</span> <button onclick="changeQty(this,1)">+</button></div>
+    </div>
+    <div class="menu-item" data-name="鮮蝦蛋" data-price="50">鮮蝦蛋 50 元
+      <div><button onclick="changeQty(this,-1)">-</button> <span class="qty">0</span> <button onclick="changeQty(this,1)">+</button></div>
+    </div>
+    <div class="menu-item" data-name="花枝蛋" data-price="50">花枝蛋 50 元
+      <div><button onclick="changeQty(this,-1)">-</button> <span class="qty">0</span> <button onclick="changeQty(this,1)">+</button></div>
+    </div>
+    <div class="menu-item" data-name="鱈魚蛋" data-price="50">鱈魚蛋 50 元
+      <div><button onclick="changeQty(this,-1)">-</button> <span class="qty">0</span> <button onclick="changeQty(this,1)">+</button></div>
+    </div>
+    <div class="menu-item" data-name="燻雞蛋" data-price="50">燻雞蛋 50 元
+      <div><button onclick="changeQty(this,-1)">-</button> <span class="qty">0</span> <button onclick="changeQty(this,1)">+</button></div>
+    </div>
+    <div class="menu-item" data-name="豬柳蛋" data-price="50">豬柳蛋 50 元
+      <div><button onclick="changeQty(this,-1)">-</button> <span class="qty">0</span> <button onclick="changeQty(this,1)">+</button></div>
+    </div>
+    <div class="menu-item" data-name="紐奧良雞肉蛋" data-price="50">紐奧良雞肉蛋 50 元
+      <div><button onclick="changeQty(this,-1)">-</button> <span class="qty">0</span> <button onclick="changeQty(this,1)">+</button></div>
+    </div>
+    <div class="menu-item" data-name="香烤雞腿蛋" data-price="60">香烤雞腿蛋 60 元
+      <div><button onclick="changeQty(this,-1)">-</button> <span class="qty">0</span> <button onclick="changeQty(this,1)">+</button></div>
+    </div>
+    <div class="menu-item" data-name="厚切洋蔥肉排蛋" data-price="60">厚切洋蔥肉排蛋 60 元
+      <div><button onclick="changeQty(this,-1)">-</button> <span class="qty">0</span> <button onclick="changeQty(this,1)">+</button></div>
+    </div>
+    <div class="menu-item" data-name="檸檬雞柳蛋" data-price="60">檸檬雞柳蛋 60 元
+      <div><button onclick="changeQty(this,-1)">-</button> <span class="qty">0</span> <button onclick="changeQty(this,1)">+</button></div>
+    </div>
+    <div class="menu-item" data-name="厚切雞排蛋" data-price="65">厚切雞排蛋 65 元
+      <div><button onclick="changeQty(this,-1)">-</button> <span class="qty">0</span> <button onclick="changeQty(this,1)">+</button></div>
+    </div>
+    <div class="menu-item" data-name="起士雞排蛋" data-price="65">起士雞排蛋 65 元
+      <div><button onclick="changeQty(this,-1)">-</button> <span class="qty">0</span> <button onclick="changeQty(this,1)">+</button></div>
+    </div>
+    <div class="menu-item" data-name="韓式雞腿蛋" data-price="70">韓式雞腿蛋 70 元
+      <div><button onclick="changeQty(this,-1)">-</button> <span class="qty">0</span> <button onclick="changeQty(this,1)">+</button></div>
+    </div>
+    <div class="menu-item" data-name="原味雞腿蛋" data-price="70">原味雞腿蛋 70 元
+      <div><button onclick="changeQty(this,-1)">-</button> <span class="qty">0</span> <button onclick="changeQty(this,1)">+</button></div>
+    </div>
+    <div class="menu-item" data-name="辣味雞腿蛋" data-price="70">辣味雞腿蛋 70 元
+      <div><button onclick="changeQty(this,-1)">-</button> <span class="qty">0</span> <button onclick="changeQty(this,1)">+</button></div>
+    </div>
+    <div class="menu-item" data-name="厚切牛肉蛋" data-price="75">厚切牛肉蛋 75 元
+      <div><button onclick="changeQty(this,-1)">-</button> <span class="qty">0</span> <button onclick="changeQty(this,1)">+</button></div>
+    </div>
+    <div class="menu-item" data-name="日式豬排蛋" data-price="75">日式豬排蛋 75 元
+      <div><button onclick="changeQty(this,-1)">-</button> <span class="qty">0</span> <button onclick="changeQty(this,1)">+</button></div>
+    </div>
+  </div>
+</div>
+
+<span id="total">總價: 0 元</span>
+<button onclick="submitOrder()">送出訂單</button>
+
+<script>
+const API_URL = "https://script.google.com/macros/s/AKfycby5HdKzIhPlvwRjJeYRz9O8lYIRFzg9YLaKVaLduvcSv1vGX5tjrELEFpOEARugRrZt/exec";
+
+function toggleSection(header) {
+  const items = header.nextElementSibling;
+  if (items.style.display === "block") {
+    items.style.display = "none";
+    header.querySelector("span").textContent = "▼";
+  } else {
+    items.style.display = "block";
+    header.querySelector("span").textContent = "▲";
+  }
+}
+
+function changeQty(btn, delta) {
+  const qtySpan = btn.parentNode.querySelector(".qty");
+  let qty = parseInt(qtySpan.textContent);
+  qty = Math.max(0, qty + delta);
+  qtySpan.textContent = qty;
+  updateTotal();
+}
+
+function updateTotal() {
+  let total = 0;
+  document.querySelectorAll(".menu-item").forEach(item => {
+    const price = parseInt(item.dataset.price);
+    const qty = parseInt(item.querySelector(".qty").textContent);
+    total += price * qty;
+  });
+  document.getElementById("total").textContent =
